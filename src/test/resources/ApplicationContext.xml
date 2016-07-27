@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+       <!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+       <context:component-scan base-package="com.baidu,com.yudong"/>
+
+       <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+       <!-- 使用disconf必须添加以下配置 -->
+       <bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+             destroy-method="destory">
+              <property name="scanPackage" value="com.bestpay"/>
+       </bean>
+       <bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+             init-method="init" destroy-method="destory">
+       </bean>
+
+       <import resource="kafka.xml"></import>
+
+</beans>

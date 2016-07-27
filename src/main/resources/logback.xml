@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="utf-8">
+            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%-5level] %logger %line --%mdc{client} %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="logDebugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/kafka-logs/debug.log</File>
+        <encoder>
+            <Pattern>[%date] [%-5level] %logger %line --%mdc{client} [%X{TRACE_LOG_ID}] %msg%n</Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/kafka-logs/debug-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="logInfoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/kafka-logs/info.log</File>
+        <encoder>
+            <Pattern>[%date] [%-5level] %logger %line --%mdc{client} [%X{TRACE_LOG_ID}] %msg%n</Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/kafka-logs/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="logErrorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/kafka-logs/error.log</File>
+        <encoder>
+            <Pattern>[%date] [%-5level] %logger %line --%mdc{client} %msg%n</Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/kafka-logs/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <logger name="com.yudong.kafka.model.KafkaProperties" level="INFO"/>
+    <logger name="com.yudong.kafka.model.ProducerType" level="INFO"/>
+    <logger name="com.yudong.kafka.model.RequiredAck" level="INFO"/>
+    <logger name="com.yudong.kafka.model.TopicInfo" level="INFO"/>
+    <logger name="com.yudong.kafka.partition.FirstPartition" level="INFO"/>
+    <logger name="com.yudong.kafka.serialize.MessageSerializer" level="INFO"/>
+    <logger name="com.yudong.kafka.service.consumer.process.BusinessProcessInterface" level="INFO"/>
+    <logger name="com.yudong.kafka.service.consumer.process.ProcessInvocationHandler" level="INFO"/>
+    <logger name="com.yudong.kafka.service.consumer.ConsumerServiceImpl" level="INFO"/>
+    <logger name="com.yudong.kafka.service.Factory.ProducerFactory" level="INFO"/>
+    <logger name="com.yudong.kafka.service.Factory.ConsumerFactory" level="INFO"/>
+    <logger name="com.yudong.kafka.service.nospring.ProducerNoSpringService" level="INFO"/>
+    <logger name="com.yudong.kafka.service.nospring.ConsumerNoSpringService" level="INFO"/>
+    <logger name="com.yudong.kafka.service.nospring.manager.ConsumeMessageManager" level="INFO"/>
+    <logger name="com.yudong.kafka.service.producer.ProducerServiceImpl" level="INFO"/>
+
+    <!-- DEBUG 输出到 debug.log、INFO 输出到 info.log、ERROR 输出到 error.log -->
+    <root level="INFO" name="com.bestpay.kafka">
+        <appender-ref ref="logDebugFile"/>
+        <appender-ref ref="logInfoFile"/>
+        <appender-ref ref="logErrorFile"/>
+    </root>
+
+</configuration>

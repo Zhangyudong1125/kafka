@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<context:property-placeholder location="classpath:/kafka.properties"/>
+
+	<bean name="topicInfo" class="com.yudong.kafka.model.TopicInfo">
+		<property name="syncFlag" value="SYNC" />
+		<property name="topicName" value="${kafka.topicName}" />
+		<property name="ack" value="LEADER_ACK" />
+		<property name="retries" value="true" />
+		<property name="groupName" value="${kafka.groupName}" />
+		<property name="zkAddress" value="${kafka.zkAddress}" />
+		<property name="brokerList" value="${kafka.brokerList}" />
+	</bean>
+
+</beans>
